@@ -16,4 +16,4 @@ echo -e "FROM openjdk:8-jre\nADD model-serving.jar app.jar\nEXPOSE 8080\nENTRYPO
 echo "Pushing to ${DOCKER_PATH}"
 docker build . -t ${DOCKER_PATH}
 docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD
-docker push ${REPO}/${IMAGE}:${VERSION}
+docker push --force-rm ${REPO}/${IMAGE}:${VERSION}
