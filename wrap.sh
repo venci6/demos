@@ -1,8 +1,9 @@
 MODEL=$1
+COLUMNS=$2
 
-REPO=$2
-IMAGE=$3
-VERSION=$4
+REPO=$3
+IMAGE=$4
+VERSION=$5
 
 DOCKER_PATH=${REPO}/${IMAGE}:${VERSION}
 
@@ -11,7 +12,7 @@ do sleep 3;
 done; 
 
 
-echo -e "FROM openjdk:8-jre\nADD model-serving.jar app.jar\nEXPOSE 8080\nENTRYPOINT [\"java\",\"-Djava.security.egd=file:/dev/./urandom\",\"-jar\",\"/app.jar\",\"--s3.outputFile=${MODEL}\"]" >> Dockerfile
+echo -e "FROM openjdk:8-jre\nADD model-serving.jar app.jar\nEXPOSE 8080\nENTRYPOINT [\"java\",\"-Djava.security.egd=file:/dev/./urandom\",\"-jar\",\"/app.jar\",\"--s3.outputFile=${MODEL}\",\"--s3.columns=${COLUMNS}\"]" >> Dockerfile
 
 echo "Pushing to ${DOCKER_PATH}"
 docker build . -t ${DOCKER_PATH}
